@@ -31,15 +31,11 @@ rule_show_action_button ={
     //set listener at the begging of extension installed
 chrome.runtime.onInstalled.addListener(function() {
   console.log('onInstalled over.');
-  chrome.storage.sync.set({unlikes: []}, function() {});
+  chrome.storage.sync.set({unlikes22: []}, function() {});
   chrome.storage.sync.set({switchStatus: true}, function() {});
   chrome.storage.sync.set({switchStatus_inner: false}, function() {});
   chrome.storage.sync.set({switchBtnStatus_inner_video: false}, function() {});
   chrome.storage.sync.set({voice: initVoice}, function() {});
-  chrome.storage.sync.set({unlikeExpireInMilsec: unlikeExpireInMilsecL}, function() {
-    console.log('init over.');
-    voicecTalk("插件 知 初始化成功。");
-  });
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     chrome.declarativeContent.onPageChanged.addRules([rule_show_action_button]);
   });
