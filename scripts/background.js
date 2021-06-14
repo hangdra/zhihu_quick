@@ -31,7 +31,6 @@ rule_show_action_button ={
     //set listener at the begging of extension installed
 chrome.runtime.onInstalled.addListener(function() {
   console.log('onInstalled over.');
-  chrome.storage.sync.set({unlikes: []}, function() {});
   chrome.storage.sync.set({switchStatus: true}, function() {});
   chrome.storage.sync.set({switchStatus_inner: false}, function() {});
   chrome.storage.sync.set({switchBtnStatus_inner_video: false}, function() {});
