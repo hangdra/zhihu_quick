@@ -56,9 +56,10 @@ chrome.runtime.onInstalled.addListener(function() {
     }
 
     function add_clear_alarms(e){
+        console.log("add_clear_alarms run")
           console.log(e);
            if (hostEquals(e.url, streamPlatformHost) ) {
-             console.log("匹配知乎。");
+             console.log("add_clear_alarms 匹配知乎。");
              for(var i=1;i<100;i++){
                chrome.alarms.create("unlikeEvent"+i, {"when":Date.now()+50*i});
              }
@@ -78,7 +79,7 @@ chrome.runtime.onInstalled.addListener(function() {
 
          }});
 
-chrome.webRequest.onCompleted.addListener(add_clear_alarms, {urls: ["*://"+streamPlatformHost+"/*"]})
+chrome.webRequest.onCompleted.addListener(add_clear_alarms,{urls:["*://"+streamPlatformHost+"/*"]})
 
 
 

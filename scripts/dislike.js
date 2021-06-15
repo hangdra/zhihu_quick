@@ -32,8 +32,8 @@ obj_inner = obj_inner.concat(images_all)
 var obj_inner_video = []
 obj_inner_video = obj_inner_video.concat(video_in,video_in_question)
 
-console.log("user_self_image:"+user_self_image.length)
-console.log("length images_all:"+images_all.length)
+//console.log("user_self_image:"+user_self_image.length)
+//console.log("length images_all:"+images_all.length)
 function show_or_hidden(){
     chrome.storage.sync.get(['switchStatus'], function(result) {
 //    console.log("show_or_hidden result"+result)
