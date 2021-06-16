@@ -32,8 +32,8 @@ rule_show_action_button ={
 chrome.runtime.onInstalled.addListener(function() {
   console.log('onInstalled over.');
   chrome.storage.sync.set({switchStatus: true}, function() {});
-  chrome.storage.sync.set({switchStatus_inner: false}, function() {});
-  chrome.storage.sync.set({switchBtnStatus_inner_video: false}, function() {});
+  chrome.storage.sync.set({switchStatus_inner: true}, function() {});
+  chrome.storage.sync.set({switchBtnStatus_inner_video: true}, function() {});
   chrome.storage.sync.set({voice: initVoice}, function() {});
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     chrome.declarativeContent.onPageChanged.addRules([rule_show_action_button]);

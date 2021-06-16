@@ -18,7 +18,7 @@ var images_all = document.querySelectorAll("img")
 var user_self_image = document.querySelectorAll("img.Avatar")
 //console.log ("typeof ",typeof(svgs))
 var all_objs = []
-all_objs = all_objs.concat(svgs,images,rights,rights_question,rights_SearchSideBar)
+all_objs = all_objs.concat(svgs,rights,rights_question,rights_SearchSideBar)
 
 var main_container_objs = []
 main_container_objs = main_container_objs.concat(main_container,question_container,SearchMain_container)
@@ -27,7 +27,7 @@ show_or_hidden()
 
 
 var obj_inner = []
-obj_inner = obj_inner.concat(images_all)
+obj_inner = obj_inner.concat(images_all,images)
 
 var obj_inner_video = []
 obj_inner_video = obj_inner_video.concat(video_in,video_in_question)

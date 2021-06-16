@@ -12,7 +12,7 @@ window.onload=function(){
 
 
      default_checked = true
-     default_checked_inner = false
+     default_checked_inner = true
      default_checked_inner_video = true
 //
     init_check_input()
@@ -37,14 +37,14 @@ window.onload=function(){
                 switchEle_inner.checked = result.switchStatus_inner
             }
          });
-         chrome.storage.sync.get(['switchBtn_inner_video'], function(result) {
-             if (result.switchBtn_inner_video == null){
+         chrome.storage.sync.get(['switchBtnStatus_inner_video'], function(result) {
+             if (result.switchBtnStatus_inner_video == null){
                  chrome.storage.sync.set({switchBtnStatus_inner_video:default_checked_inner_video}, function() {});
                  if(switchBtn_inner_video.checked!=default_checked_inner_video){
                      switchBtn_inner_video.click()
                  }
              }else{
-                 switchBtn_inner_video.checked = result.switchBtn_inner_video
+                 switchBtn_inner_video.checked = result.switchBtnStatus_inner_video
              }
          });
     }
