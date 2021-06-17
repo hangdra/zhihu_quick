@@ -15,15 +15,19 @@
       });
     }
     chrome.alarms.onAlarm.addListener(function(alarm){
-      console.log("ararm"+Date.now()+" "+alarm.name);
-      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      if ((tabs != null )&& (tabs.length != 0 )){
-            chrome.tabs.executeScript(
-                tabs[0].id,
-                {file:"scripts/dislike.js"}
-              );
-          };
-      });
+        console.log("ararm"+Date.now()+" "+alarm.name);
+        chrome.tabs.query({ active: true, currentWindow: true , url: "*://"+streamPlatformHost+"/*"}, function(tabs) {
+            if (chrome.runtime.lastError){
+                console.log("Whoops.. " + chrome.runtime.lastError.message);
+            }else{
+                if ((tabs != undefined )&& (tabs.length != 0 )){
+                    chrome.tabs.executeScript(
+                        tabs[0].id,
+                        {file:"scripts/dislike.js"}
+                    );
+                };
+           }
+         });
     });
 
 rule_show_action_button ={
