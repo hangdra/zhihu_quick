@@ -6,6 +6,7 @@ var ads = document.querySelectorAll("div .Pc-feedAd-container")
 var rights = document.querySelectorAll("div .GlobalSideBar")
 var rights_question = document.querySelectorAll("div .Question-sideColumn")
 var question_container =document.querySelectorAll("div .Question-mainColumn")
+var question_container_list = document.querySelectorAll("div.Question-main div.ListShortcut")
 var main_container =document.querySelectorAll("div .Topstory-mainColumn")
 var rights_SearchSideBar =document.querySelectorAll("div .SearchSideBar")
 var SearchMain_container =document.querySelectorAll("div .SearchMain")
@@ -21,7 +22,7 @@ var all_objs = []
 all_objs = all_objs.concat(svgs,images,rights,rights_question,rights_SearchSideBar)
 
 var main_container_objs = []
-main_container_objs = main_container_objs.concat(main_container,question_container,SearchMain_container)
+main_container_objs = main_container_objs.concat(main_container,question_container,SearchMain_container,question_container_list)
 //console.log(svgs)
 show_or_hidden()
 

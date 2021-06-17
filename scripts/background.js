@@ -17,10 +17,12 @@
     chrome.alarms.onAlarm.addListener(function(alarm){
       console.log("ararm"+Date.now()+" "+alarm.name);
       chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.executeScript(
-            tabs[0].id,
-            {file:"scripts/dislike.js"}
-          );
+      if ((tabs != null )&& (tabs.length != 0 )){
+            chrome.tabs.executeScript(
+                tabs[0].id,
+                {file:"scripts/dislike.js"}
+              );
+          };
       });
     });
 
