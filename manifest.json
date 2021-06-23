@@ -3,7 +3,7 @@
   "name": "知乎quick",
   "version": "1.0.0",
   "description": "精简知乎，精彩留给自己!",
-  "permissions": ["https://www.zhihu.com/","activeTab","declarativeContent", "storage","tts","ttsEngine",
+  "permissions": ["*://*.zhihu.com/","https://*.zhimg.com/","activeTab","declarativeContent", "storage","tts","ttsEngine",
     "webNavigation","alarms","webRequest"],
   "tts_engine": {
     "voices": [

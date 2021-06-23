@@ -2,7 +2,7 @@
 var initSwitchStatus = false;
 var unlikeExpireInMilsecL = 30*24*60*60*1000;
 var streamPlatformHost = "www.zhihu.com";
-var PlatformHost=["video.zhihu.com","www.zhihu.com"]
+var platformResourceHost=[/^http(s)?:\/\/(video.zhihu.com)|(pic[0-9]*.zhimg.com)\/.*/]
 var initVoice = true;
 
 //if need voice talk
@@ -17,7 +17,7 @@ function voicecTalk(voiceStr){
 }
 chrome.alarms.onAlarm.addListener(function(alarm){
     console.log("ararm"+Date.now()+" "+alarm.name);
-    chrome.tabs.query({ active: true, currentWindow: true , url: "*://"+streamPlatformHost+"/*"}, function(tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         if (chrome.runtime.lastError){
             console.log("Whoops.. " + chrome.runtime.lastError.message);
         }else{
@@ -54,13 +54,11 @@ function hostEquals(inputUrl,tarUrls){
     var find = false;
     for (tarUrl of tarUrls){
         if (inputUrl && tarUrl){
-            var reg = /^http(s)?:\/\/(.*?)\//;
+//            var reg = /^http(s)?:\/\/(.*?)\//;
             console.log("inputUrl:",inputUrl,"tarUrls",tarUrls)
-            console.log("tarUrl:"+tarUrl+" inputUrl:"+inputUrl+" sencond:"+reg.exec(inputUrl)[2]);
-            if (reg.exec(inputUrl)&&reg.exec(inputUrl)[2]){
-                if(reg.exec(inputUrl)[2]==tarUrl){
-                    find = true;
-                }
+//            console.log("tarUrl:",tarUrl," inputUrl:",inputUrl," sencond:",tarUrl.exec(inputUrl)[2]);
+            if (tarUrl.exec(inputUrl)&&tarUrl.exec(inputUrl)[0]){
+                return true;
             }
         }
     }
@@ -72,29 +70,30 @@ function hostEquals(inputUrl,tarUrls){
 function add_clear_alarms(e){
     console.log("add_clear_alarms run")
     console.log(e);
-    if (hostEquals(e.url, PlatformHost) ) {
+    if (hostEquals(e.url, platformResourceHost) ) {
         console.log("add_clear_alarms 匹配知乎。");
-        for(var i=1;i<100;i++){
-            chrome.alarms.create("add_clear_alarms"+i, {"when":Date.now()+50*i});
-        }
+//        for(var i=1;i<100;i++){
+        i = 0;
+        chrome.alarms.create("add_clear_alarms"+i, {"when":Date.now()+50*i});
+//        }
 
     }
 }
 
 // listen dom loaded and when its cirtical host , we need to put switch on those streamers.
-chrome.webNavigation.onCompleted.addListener(function(e) {
-    console.log("webNavigation:",e);
-    if (hostEquals(e.url, PlatformHost) ) {
-    // voicecTalk("匹配斗鱼。");
-        console.log("webNavigation 匹配知乎。");
-        for(var i=1;i<100;i++){
-//                console.log("webNavigation 匹配知乎。createing alarms:"+i);
-            chrome.alarms.create("unlikeEvent"+i, {"when":Date.now()+50*i});
-        }
-     }
-});
+//chrome.webNavigation.onCompleted.addListener(function(e) {
+//    console.log("webNavigation:",e);
+//    // voicecTalk("匹配斗鱼。");
+//    console.log("webNavigation 匹配知乎。");
+//    for(var i=1;i<100;i++){
+////                console.log("webNavigation 匹配知乎。createing alarms:"+i);
+//        chrome.alarms.create("unlikeEvent"+i, {"when":Date.now()+50*i});
+//    }
+//},{urls:["*://"+streamPlatformHost+"/*"]});
+chrome.webRequest.onCompleted.addListener(add_clear_alarms,{urls: ["<all_urls>"]})
 
-chrome.webRequest.onCompleted.addListener(add_clear_alarms,{urls:["*://"+streamPlatformHost+"/*"]})
+
+//chrome.webRequest.onCompleted.addListener(add_clear_alarms,{urls:["*://"+streamPlatformHost+"/*"]})
 
 
 
