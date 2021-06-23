@@ -20,8 +20,7 @@
     ]
   },
   "background": {
-    "scripts": ["scripts/background.js","scripts/dislike.js"],
-    "persistent": true
+    "scripts": ["scripts/background.js"]
   },
   "page_action": {
       "default_title": "知乎quick",

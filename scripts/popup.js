@@ -5,16 +5,18 @@
 // 'use strict';
 //
 //
+
 window.onload=function(){
-     let switchEle = document.getElementById('switchBtn');
-     let switchEle_inner = document.getElementById('switchBtn_inner');
-     let switchBtn_inner_video = document.getElementById('switchBtn_inner_video');
+    let switchEle = document.getElementById('switchBtn');
+    let switchEle_inner = document.getElementById('switchBtn_inner');
+    let switchBtn_inner_video = document.getElementById('switchBtn_inner_video');
 
+    var streamPlatformHost = "www.zhihu.com";
 
-     default_checked = true
-     default_checked_inner = true
-     default_checked_inner_video = true
-//
+    default_checked = true
+    default_checked_inner = true
+    default_checked_inner_video = true
+    //
     init_check_input()
     function init_check_input(){
          chrome.storage.sync.get(['switchStatus'], function(result) {
@@ -49,13 +51,19 @@ window.onload=function(){
          });
     }
     chrome.alarms.onAlarm.addListener(function(alarm){
-      console.log("ararm"+Date.now()+" "+alarm.name);
-      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.executeScript(
-            tabs[0].id,
-            {file:"scripts/dislike.js"}
-          );
-      });
+        console.log("ararm"+Date.now()+" "+alarm.name);
+        chrome.tabs.query({ active: true, currentWindow: true , url: "*://"+streamPlatformHost+"/*"}, function(tabs) {
+          if (chrome.runtime.lastError){
+              console.log("Whoops.. " + chrome.runtime.lastError.message);
+          }else{
+              if ((tabs != undefined )&& (tabs.length != 0 )){
+                  chrome.tabs.executeScript(
+                      tabs[0].id,
+                      {file:"scripts/dislike.js"}
+                  );
+              };
+         }
+        });
     });
 
 
