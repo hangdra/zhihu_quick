@@ -12,7 +12,8 @@
   给 [知乎](https://www.zhihu.com/) 网页用户提供一款[Chrome 浏览器](https://www.google.cn/intl/zh-CN/chrome/) 扩展程序，屏蔽广告，并提供极精简模式。
 
 ### zhihu信息越来越少的今天，还有广告？？？？一个chrome 浏览器扩展程序帮助你解决烦恼！！
-![知乎quick](https://user-images.githubusercontent.com/10275628/120310743-4d10ca00-c309-11eb-9414-d81d7a672e35.png)
+![知乎quick](https://user-images.githubusercontent.com/10275628/123084492-c35da380-d453-11eb-8bfd-7fcdd30dfdbf.png)
+
 ### 简介
 
   本程序为 [Chrome 浏览器](https://www.google.cn/intl/zh-CN/chrome/) 的扩展插件，给用[知乎](https://www.zhihu.com/) 的用户提供一款浏览器扩展程序，屏蔽广告，并且可以开启极速预览，插件内所有操作均可撤销。
