@@ -2,6 +2,7 @@
 var initSwitchStatus = false;
 var unlikeExpireInMilsecL = 30*24*60*60*1000;
 var streamPlatformHost = "www.zhihu.com";
+var PlatformHost=["video.zhihu.com","www.zhihu.com"]
 var initVoice = true;
 
 //if need voice talk
@@ -49,25 +50,32 @@ chrome.runtime.onInstalled.addListener(function() {
 
 
      //output if url host is demand
-function hostEquals(inputUrl,tarUrl){
-  if (inputUrl && tarUrl){
-    var reg = /^http(s)?:\/\/(.*?)\//;
-//        console.log("tarUrl:"+tarUrl+" inputUrl:"+inputUrl+" sencond:"+reg.exec(inputUrl)[2]);
-    if (reg.exec(inputUrl)&&reg.exec(inputUrl)[2]){
-      return reg.exec(inputUrl)[2]==tarUrl;
-    }{
-      return false;
+function hostEquals(inputUrl,tarUrls){
+    var find = false;
+    for (tarUrl of tarUrls){
+        if (inputUrl && tarUrl){
+            var reg = /^http(s)?:\/\/(.*?)\//;
+            console.log("inputUrl:",inputUrl,"tarUrls",tarUrls)
+            console.log("tarUrl:"+tarUrl+" inputUrl:"+inputUrl+" sencond:"+reg.exec(inputUrl)[2]);
+            if (reg.exec(inputUrl)&&reg.exec(inputUrl)[2]){
+                if(reg.exec(inputUrl)[2]==tarUrl){
+                    find = true;
+                }
+            }
+        }
     }
-  }
+
+    console.log("find:",find)
+    return find;
 }
 
 function add_clear_alarms(e){
     console.log("add_clear_alarms run")
     console.log(e);
-    if (hostEquals(e.url, streamPlatformHost) ) {
+    if (hostEquals(e.url, PlatformHost) ) {
         console.log("add_clear_alarms 匹配知乎。");
         for(var i=1;i<100;i++){
-            chrome.alarms.create("unlikeEvent"+i, {"when":Date.now()+50*i});
+            chrome.alarms.create("add_clear_alarms"+i, {"when":Date.now()+50*i});
         }
 
     }
@@ -75,8 +83,8 @@ function add_clear_alarms(e){
 
 // listen dom loaded and when its cirtical host , we need to put switch on those streamers.
 chrome.webNavigation.onCompleted.addListener(function(e) {
-    console.log(e);
-    if (hostEquals(e.url, streamPlatformHost) ) {
+    console.log("webNavigation:",e);
+    if (hostEquals(e.url, PlatformHost) ) {
     // voicecTalk("匹配斗鱼。");
         console.log("webNavigation 匹配知乎。");
         for(var i=1;i<100;i++){

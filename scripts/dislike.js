@@ -11,8 +11,8 @@ var main_container =document.querySelectorAll("div .Topstory-mainColumn")
 var rights_SearchSideBar =document.querySelectorAll("div .SearchSideBar")
 var SearchMain_container =document.querySelectorAll("div .SearchMain")
 
-var video_in =document.querySelectorAll("div .VideoContributionAnswer-video")
-var video_in_question =document.querySelectorAll("div .ZVideoItem-video")
+var video_in =document.querySelectorAll("div.VideoContributionAnswer-video")
+var video_in_question =document.querySelectorAll("div.ZVideoItem-video")
 
 var images_all = document.querySelectorAll("img")
 
