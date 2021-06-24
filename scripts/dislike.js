@@ -13,7 +13,7 @@ var SearchMain_container =document.querySelectorAll("div .SearchMain")
 
 var video_in =document.querySelectorAll("div.VideoContributionAnswer-video")
 var video_in_question =document.querySelectorAll("div.ZVideoItem-video")
-
+var video_in_question =document.querySelectorAll("div.RichText-video")
 var images_all = document.querySelectorAll("img")
 
 var user_self_image = document.querySelectorAll("img.Avatar")
