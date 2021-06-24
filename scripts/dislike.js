@@ -13,7 +13,7 @@ var SearchMain_container =document.querySelectorAll("div .SearchMain")
 
 var video_in =document.querySelectorAll("div.VideoContributionAnswer-video")
 var video_in_question =document.querySelectorAll("div.ZVideoItem-video")
-var video_in_question =document.querySelectorAll("div.RichText-video")
+var video_in_question2 =document.querySelectorAll("div.RichText-video")
 var images_all = document.querySelectorAll("img")
 
 var user_self_image = document.querySelectorAll("img.Avatar")
@@ -31,7 +31,7 @@ var obj_inner = []
 obj_inner = obj_inner.concat(images_all,images)
 
 var obj_inner_video = []
-obj_inner_video = obj_inner_video.concat(video_in,video_in_question)
+obj_inner_video = obj_inner_video.concat(video_in,video_in_question,video_in_question2)
 
 console.log("user_self_image:"+user_self_image.length)
 //console.log("length images_all:"+images_all.length)
