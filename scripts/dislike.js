@@ -76,7 +76,7 @@ function show_or_hidden(){
                     var b_is_image_self = false
                     for (var item_user_self of user_self_image){
                         if (item_one == item_user_self){
-                            console.log("find same obj")
+//                            console.log("find same obj")
                             b_is_image_self = true
                         };
                     };
