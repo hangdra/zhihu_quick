@@ -14,8 +14,10 @@ var SearchMain_container =document.querySelectorAll("div .SearchMain")
 var video_in =document.querySelectorAll("div.VideoContributionAnswer-video")
 var video_in_question =document.querySelectorAll("div.ZVideoItem-video")
 var video_in_question2 =document.querySelectorAll("div.RichText-video")
+var iframes = document.querySelectorAll("iframe")
+var video_inquestion3 = document.querySelectorAll("div.RichText-ZVideoLinkCardContainer")
 var images_all = document.querySelectorAll("img")
-
+//ArticleItem-image
 var user_self_image = document.querySelectorAll("img.Avatar")
 //console.log ("typeof ",typeof(svgs))
 var all_objs = []
@@ -31,13 +33,13 @@ var obj_inner = []
 obj_inner = obj_inner.concat(images_all,images)
 
 var obj_inner_video = []
-obj_inner_video = obj_inner_video.concat(video_in,video_in_question,video_in_question2)
+obj_inner_video = obj_inner_video.concat(video_in,video_in_question,video_in_question2,video_inquestion3,iframes)
 
-console.log("user_self_image:"+user_self_image.length)
+//console.log("user_self_image:"+user_self_image.length)
 //console.log("length images_all:"+images_all.length)
 function show_or_hidden(){
     chrome.storage.sync.get(['switchStatus'], function(result) {
-//    console.log("show_or_hidden result"+result)
+//    console.log("show_or_hidden result",result)
         for (var item of ads){
             item.setAttribute("style","display:none");
         };
@@ -110,6 +112,23 @@ function show_or_hidden(){
 };
 
 
+
+var observer = new MutationObserver(mutations => {
+    for(let mutation of mutations) {
+         for(let addedNode of mutation.addedNodes) {
+             if (addedNode.nodeName === "IMG") {
+//                 console.log("Inserted image", addedNode);
+                 chrome.storage.sync.get(['switchStatus_inner'], function(result) {
+//                    console.log("show_or_hidden result",result)
+                    if (result.switchStatus_inner){
+                        addedNode.setAttribute("style","display:none");
+                    }
+                 });
+              }
+          }
+     }
+ });
+observer.observe(document, { childList: true, subtree: true });
 //chrome.storage.sync.get(['unlikes'], function(result) {
 //  if(result && result.unlikes && listAllLi){
 //    for (var li of listAllLi){

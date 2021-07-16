@@ -80,6 +80,9 @@ function add_clear_alarms(e){
     }
 }
 
+
+
+
 // listen dom loaded and when its cirtical host , we need to put switch on those streamers.
 //chrome.webNavigation.onCompleted.addListener(function(e) {
 //    console.log("webNavigation:",e);
