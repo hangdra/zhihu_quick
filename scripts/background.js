@@ -1,7 +1,7 @@
 
 var initSwitchStatus = false;
 var unlikeExpireInMilsecL = 30*24*60*60*1000;
-var streamPlatformHost = "www.zhihu.com";
+var streamPlatformHost = "zhihu.com";
 var platformResourceHost=[/^http(s)?:\/\/(www.zhihu.com\/video)|(video.zhihu.com)|(pic[0-9]*.zhimg.com)\/.*/]
 var initVoice = true;
 
@@ -33,7 +33,7 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 
 rule_show_action_button ={
           conditions: [new chrome.declarativeContent.PageStateMatcher(
-                {pageUrl: {hostEquals: streamPlatformHost},})],
+                {pageUrl: {urlContains: streamPlatformHost},})],
                 actions: [new chrome.declarativeContent.ShowPageAction()]}
     //set listener at the begging of extension installed
 chrome.runtime.onInstalled.addListener(function() {
