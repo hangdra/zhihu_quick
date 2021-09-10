@@ -32,16 +32,6 @@
         "128": "images/zhihu.png"
       }
     },
-//    "browser_action": {
-//      "default_title": "知乎quick",
-//      "default_popup": "popup.html",
-//      "default_icon": {
-//        "16": "images/zhihu.png",
-//        "32": "images/zhihu.png",
-//        "48": "images/zhihu.png",
-//        "128": "images/zhihu.png"
-//      }
-//    },
     "icons": {
       "16": "images/zhihu.png",
       "32": "images/zhihu.png",
