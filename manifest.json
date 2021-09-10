@@ -1,9 +1,9 @@
 
 {
-  "name": "知乎quick",
+  "name": "image block",
   "version": "1.0.0",
-  "description": "精简知乎，精彩留给自己!",
-  "permissions": ["*://*.zhihu.com/","https://*.zhimg.com/","activeTab","declarativeContent", "storage","tts","ttsEngine",
+  "description": "精简页面，精彩留给自己!",
+  "permissions": ["http://*/*", "https://*/*","activeTab","declarativeContent", "storage","tts","ttsEngine",
     "webNavigation","alarms","webRequest"],
   "tts_engine": {
     "voices": [
@@ -22,8 +22,8 @@
   "background": {
     "scripts": ["scripts/background.js"]
   },
-  "page_action": {
-      "default_title": "知乎quick",
+  "browser_action": {
+      "default_title": "网页quick",
       "default_popup": "popup.html",
       "default_icon": {
         "16": "images/zhihu.png",
@@ -32,16 +32,6 @@
         "128": "images/zhihu.png"
       }
     },
-//    "browser_action": {
-//      "default_title": "知乎quick",
-//      "default_popup": "popup.html",
-//      "default_icon": {
-//        "16": "images/zhihu.png",
-//        "32": "images/zhihu.png",
-//        "48": "images/zhihu.png",
-//        "128": "images/zhihu.png"
-//      }
-//    },
     "icons": {
       "16": "images/zhihu.png",
       "32": "images/zhihu.png",

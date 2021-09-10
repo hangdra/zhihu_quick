@@ -114,19 +114,17 @@ function show_or_hidden(){
 
 
 var observer = new MutationObserver(mutations => {
-    for(let mutation of mutations) {
-         for(let addedNode of mutation.addedNodes) {
-             if (addedNode.nodeName === "IMG") {
-//                 console.log("Inserted image", addedNode);
-                 chrome.storage.sync.get(['switchStatus_inner'], function(result) {
-//                    console.log("show_or_hidden result",result)
-                    if (result.switchStatus_inner){
-                        addedNode.setAttribute("style","display:none");
-                    }
-                 });
-              }
-          }
-     }
+    chrome.storage.sync.get(['switchStatus_inner'], function(result) {
+        if (result.switchStatus_inner){
+            for(let mutation of mutations) {
+                 for(let addedNode of mutation.addedNodes) {
+                     if (addedNode.nodeName === "IMG") {
+                            addedNode.setAttribute("style","display:none");
+                         }
+                      }
+                  }
+        }
+        });
  });
 observer.observe(document, { childList: true, subtree: true });
 //chrome.storage.sync.get(['unlikes'], function(result) {

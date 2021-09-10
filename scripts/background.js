@@ -1,8 +1,7 @@
 
 var initSwitchStatus = false;
 var unlikeExpireInMilsecL = 30*24*60*60*1000;
-var streamPlatformHost = "zhihu.com";
-var platformResourceHost=[/^http(s)?:\/\/(www.zhihu.com\/video)|(video.zhihu.com)|(pic[0-9]*.zhimg.com)\/.*/]
+var streamPlatformHost = "https://*/*";
 var initVoice = true;
 
 //if need voice talk
@@ -33,18 +32,19 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 
 rule_show_action_button ={
           conditions: [new chrome.declarativeContent.PageStateMatcher(
+//          urls: ["<all_urls>"]
                 {pageUrl: {urlContains: streamPlatformHost},})],
                 actions: [new chrome.declarativeContent.ShowPageAction()]}
     //set listener at the begging of extension installed
 chrome.runtime.onInstalled.addListener(function() {
   console.log('onInstalled over.');
-  chrome.storage.sync.set({switchStatus: true}, function() {});
+//  chrome.storage.sync.set({switchStatus: true}, function() {});
   chrome.storage.sync.set({switchStatus_inner: true}, function() {});
-  chrome.storage.sync.set({switchBtnStatus_inner_video: true}, function() {});
+//  chrome.storage.sync.set({switchBtnStatus_inner_video: true}, function() {});
   chrome.storage.sync.set({voice: initVoice}, function() {});
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-    chrome.declarativeContent.onPageChanged.addRules([rule_show_action_button]);
-  });
+//  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+//    chrome.declarativeContent.onPageChanged.addRules([rule_show_action_button]);
+//  });
 });
 
 
@@ -70,14 +70,14 @@ function hostEquals(inputUrl,tarUrls){
 function add_clear_alarms(e){
     console.log("add_clear_alarms run")
     console.log(e);
-    if (hostEquals(e.url, platformResourceHost) ) {
-        console.log("add_clear_alarms 匹配知乎。");
+//    if (hostEquals(e.url, platformResourceHost) ) {
+    console.log("add_clear_alarms 匹配知乎。");
 //        for(var i=1;i<100;i++){
-        i = 0;
-        chrome.alarms.create("add_clear_alarms"+i, {"when":Date.now()+50*i});
+    i = 0;
+    chrome.alarms.create("add_clear_alarms"+i, {"when":Date.now()+50*i});
 //        }
 
-    }
+//    }
 }
 
 
