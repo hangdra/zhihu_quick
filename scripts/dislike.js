@@ -38,39 +38,40 @@ obj_inner_video = obj_inner_video.concat(video_in,video_in_question,video_in_que
 //console.log("user_self_image:"+user_self_image.length)
 //console.log("length images_all:"+images_all.length)
 function show_or_hidden(){
-    chrome.storage.sync.get(['switchStatus'], function(result) {
-//    console.log("show_or_hidden result",result)
-        for (var item of ads){
-            item.setAttribute("style","display:none");
-        };
-        for (var item of main_container_objs){
-            for (var item_one of item){
-                item_one.setAttribute("style","width:100%");
-            };
-        };
-        if (result.switchStatus){
-            for (var item of all_objs){
-                for (var item_one of item){
-                    item_one.setAttribute("style","display:none");
-                };
-            };
-
-        }else{
-            for (var item of main_container_objs){
-                for (var item_one of item){
-                        item_one.setAttribute("style","");
-                };
-            };
-            for (var item of all_objs){
-                for (var item_one of item){
-                    item_one.setAttribute("style","");
-                };
-            };
-        };
-    })
-    chrome.storage.sync.get(['switchStatus_inner'], function(result) {
-//    console.log("show_or_hidden result"+result)
-        if (result.switchStatus_inner){
+    console.log("dislike running")
+//    chrome.storage.sync.get(['switchStatus'], function(result) {
+////    console.log("show_or_hidden result",result)
+//        for (var item of ads){
+//            item.setAttribute("style","display:none");
+//        };
+//        for (var item of main_container_objs){
+//            for (var item_one of item){
+//                item_one.setAttribute("style","width:100%");
+//            };
+//        };
+//        if (result.switchStatus){
+//            for (var item of all_objs){
+//                for (var item_one of item){
+//                    item_one.setAttribute("style","display:none");
+//                };
+//            };
+//
+//        }else{
+//            for (var item of main_container_objs){
+//                for (var item_one of item){
+//                        item_one.setAttribute("style","");
+//                };
+//            };
+//            for (var item of all_objs){
+//                for (var item_one of item){
+//                    item_one.setAttribute("style","");
+//                };
+//            };
+//        };
+//    })
+    chrome.storage.sync.get(['web_switchStatus_inner'], function(result) {
+    console.log("show_or_hidden result",result)
+        if (result.web_switchStatus_inner){
             for (var item of obj_inner){
                 for (var item_one of item){
                     var b_is_image_self = false
@@ -93,39 +94,28 @@ function show_or_hidden(){
             };
         };
     });
-
-    chrome.storage.sync.get(['switchBtnStatus_inner_video'], function(result) {
-        if (result.switchBtnStatus_inner_video){//obj_inner_video
-            for (var item of obj_inner_video){
-                for (var item_one of item){
-                        item_one.setAttribute("style","display:none");
-                };
-            };
-        }else{
-            for (var item of obj_inner_video){
-                for (var item_one of item){
-                        item_one.setAttribute("style","");
-                };
-            };
-        };
-    });
 };
 
 
 
+var result_of_status = false
+chrome.storage.sync.get(['web_switchStatus_inner'], function(result) {
+    result_of_status = result.web_switchStatus_inner
+});
 var observer = new MutationObserver(mutations => {
-    chrome.storage.sync.get(['switchStatus_inner'], function(result) {
-        if (result.switchStatus_inner){
-            for(let mutation of mutations) {
-                 for(let addedNode of mutation.addedNodes) {
-                     if (addedNode.nodeName === "IMG") {
-                            addedNode.setAttribute("style","display:none");
-                         }
-                      }
-                  }
-        }
-        });
- });
+                    if(result_of_status){
+                        for(let mutation of mutations) {
+                            for(let addedNode of mutation.addedNodes) {
+                               if (addedNode.nodeName === "IMG") {
+                                      addedNode.setAttribute("style","display:none");
+                               }
+                            }
+                        }
+                    }
+                });
+
+
+
 observer.observe(document, { childList: true, subtree: true });
 //chrome.storage.sync.get(['unlikes'], function(result) {
 //  if(result && result.unlikes && listAllLi){

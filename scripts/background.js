@@ -1,7 +1,9 @@
 
 var initSwitchStatus = false;
 var unlikeExpireInMilsecL = 30*24*60*60*1000;
-var streamPlatformHost = "https://*/*";
+var platformHost = "(baidu|youtube).com";
+var platformResourceHost=[/^http(s)?:\/\/.*(baidu|youtube).com\/.*/]
+
 var initVoice = true;
 
 //if need voice talk
@@ -21,10 +23,12 @@ chrome.alarms.onAlarm.addListener(function(alarm){
             console.log("Whoops.. " + chrome.runtime.lastError.message);
         }else{
             if ((tabs != undefined )&& (tabs.length != 0 )){
-                chrome.tabs.executeScript(
-                    tabs[0].id,
-                    {file:"scripts/dislike.js"}
-                );
+                if (platformResourceHost[0].exec(tabs[0].url)&&platformResourceHost[0].exec(tabs[0].url)[0]){
+                    console.log("pop:web thing running")
+                    chrome.tabs.executeScript(
+                        tabs[0].id,
+                        {file:"scripts/dislike.js"});
+                }
             };
        }
      });
@@ -33,7 +37,7 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 rule_show_action_button ={
           conditions: [new chrome.declarativeContent.PageStateMatcher(
 //          urls: ["<all_urls>"]
-                {pageUrl: {urlContains: streamPlatformHost},})],
+                {pageUrl: {urlMatches: platformHost},})],
                 actions: [new chrome.declarativeContent.ShowPageAction()]}
     //set listener at the begging of extension installed
 chrome.runtime.onInstalled.addListener(function() {
@@ -42,10 +46,12 @@ chrome.runtime.onInstalled.addListener(function() {
   chrome.storage.sync.set({switchStatus_inner: true}, function() {});
 //  chrome.storage.sync.set({switchBtnStatus_inner_video: true}, function() {});
   chrome.storage.sync.set({voice: initVoice}, function() {});
-//  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-//    chrome.declarativeContent.onPageChanged.addRules([rule_show_action_button]);
-//  });
+  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+    chrome.declarativeContent.onPageChanged.addRules([rule_show_action_button]);
+  });
 });
+
+
 
 
 
@@ -55,10 +61,11 @@ function hostEquals(inputUrl,tarUrls){
     for (tarUrl of tarUrls){
         if (inputUrl && tarUrl){
 //            var reg = /^http(s)?:\/\/(.*?)\//;
-            console.log("inputUrl:",inputUrl,"tarUrls",tarUrls)
+            console.log(" bg:inputUrl:",inputUrl,"tarUrls",tarUrls)
 //            console.log("tarUrl:",tarUrl," inputUrl:",inputUrl," sencond:",tarUrl.exec(inputUrl)[2]);
             if (tarUrl.exec(inputUrl)&&tarUrl.exec(inputUrl)[0]){
-                return true;
+                find = true;
+                break;
             }
         }
     }
@@ -68,14 +75,14 @@ function hostEquals(inputUrl,tarUrls){
 }
 
 function add_clear_alarms(e){
-    console.log("add_clear_alarms run")
+    console.log("bg:add_clear_alarms run")
     console.log(e);
-//    if (hostEquals(e.url, platformResourceHost) ) {
-    console.log("add_clear_alarms 匹配知乎。");
-//        for(var i=1;i<100;i++){
-    i = 0;
-    chrome.alarms.create("add_clear_alarms"+i, {"when":Date.now()+50*i});
-//        }
+    if (hostEquals(e.url, platformResourceHost) ) {
+        console.log("bg:add_clear_alarms 匹配页面。");
+    //        for(var i=1;i<100;i++){
+        i = 0;
+        chrome.alarms.create("add_clear_alarms"+i, {"when":Date.now()+50*i});
+    }
 
 //    }
 }
@@ -96,7 +103,7 @@ function add_clear_alarms(e){
 chrome.webRequest.onCompleted.addListener(add_clear_alarms,{urls: ["<all_urls>"]})
 
 
-//chrome.webRequest.onCompleted.addListener(add_clear_alarms,{urls:["*://"+streamPlatformHost+"/*"]})
+//chrome.webRequest.onCompleted.addListener(add_clear_alarms,{urls:["*://"+platformHost+"/*"]})
 
 
 

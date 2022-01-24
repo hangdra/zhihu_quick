@@ -1,9 +1,9 @@
 
 {
   "name": "image block",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "精简页面，精彩留给自己!",
-  "permissions": ["http://*/*", "https://*/*","activeTab","declarativeContent", "storage","tts","ttsEngine",
+  "permissions": ["*://*.baidu.com/*",  "*://*.youtube.com/*","activeTab","declarativeContent", "storage","tts","ttsEngine",
     "webNavigation","alarms","webRequest"],
   "tts_engine": {
     "voices": [
