@@ -20,14 +20,17 @@ window.onload=function(){
     //
     init_check_input()
     function init_check_input(){
-         chrome.storage.sync.get(['web_switchStatus_inner'], function(result) {
-            if (result.switchStatus_inner == null){
-                chrome.storage.sync.set({'web_switchStatus_inner':default_checked_inner}, function() {});
+         chrome.storage.local.get(['web_switchStatus_inner'], function(result) {
+            console.log("result",result)
+            if (result.web_switchStatus_inner == null){
+                console.log("if status: switchStatus_inner null")
+                chrome.storage.local.set({'web_switchStatus_inner':default_checked_inner}, function() {});
                 if(switchEle_inner.checked!=default_checked_inner){
                     switchEle_inner.click()
                 }
             }else{
-                switchEle_inner.checked = result.switchStatus_inner
+                switchEle_inner.checked = result.web_switchStatus_inner
+                console.log("if status: switchStatus_inner ",result.web_switchStatus_inner)
             }
          });
 
@@ -57,8 +60,8 @@ window.onload=function(){
      switchEle_inner.onclick = function(element) {
         console.log("status change switchEle_inner",switchEle_inner.checked);
         console.log(switchEle_inner)
-        chrome.storage.sync.set({'web_switchStatus_inner': switchEle_inner.checked}, function() {});
-        chrome.alarms.create("unlikeEvent", {"when":Date.now()});
+        chrome.storage.local.set({'web_switchStatus_inner': switchEle_inner.checked}, function() {});
+        chrome.alarms.create("unlikeEvent", {"when":Date.now()+300});
      };
 }
 

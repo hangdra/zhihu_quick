@@ -26,17 +26,17 @@
       "default_title": "网页quick",
       "default_popup": "popup.html",
       "default_icon": {
-        "16": "images/zhihu.png",
-        "32": "images/zhihu.png",
-        "48": "images/zhihu.png",
-        "128": "images/zhihu.png"
+        "16": "images/img.png",
+        "32": "images/img.png",
+        "48": "images/img.png",
+        "128": "images/img.png"
       }
     },
     "icons": {
-      "16": "images/zhihu.png",
-      "32": "images/zhihu.png",
-      "48": "images/zhihu.png",
-      "128": "images/zhihu.png"
+      "16": "images/img.png",
+      "32": "images/img.png",
+      "48": "images/img.png",
+      "128": "images/img.png"
     },
   "manifest_version": 2
 }

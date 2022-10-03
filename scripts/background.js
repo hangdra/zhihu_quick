@@ -9,7 +9,7 @@ var initVoice = true;
 //if need voice talk
 function voicecTalk(voiceStr){
   console.log('voicecTalk function');
-  chrome.storage.sync.get(['voice'], function(result) {
+  chrome.storage.local.get(['voice'], function(result) {
     if(result && result.voice){
       console.log('voicecTalk'+result.voice);
       chrome.tts.speak(voiceStr);
@@ -42,10 +42,10 @@ rule_show_action_button ={
     //set listener at the begging of extension installed
 chrome.runtime.onInstalled.addListener(function() {
   console.log('onInstalled over.');
-//  chrome.storage.sync.set({switchStatus: true}, function() {});
-  chrome.storage.sync.set({switchStatus_inner: true}, function() {});
-//  chrome.storage.sync.set({switchBtnStatus_inner_video: true}, function() {});
-  chrome.storage.sync.set({voice: initVoice}, function() {});
+//  chrome.storage.local.set({switchStatus: true}, function() {});
+  chrome.storage.local.set({switchStatus_inner: true}, function() {});
+//  chrome.storage.local.set({switchBtnStatus_inner_video: true}, function() {});
+  chrome.storage.local.set({voice: initVoice}, function() {});
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     chrome.declarativeContent.onPageChanged.addRules([rule_show_action_button]);
   });
