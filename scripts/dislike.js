@@ -159,9 +159,6 @@ var observer = new MutationObserver(mutations => {
                         }
                     }
                 });
-
-
-
 observer.observe(document, { childList: true, subtree: true });
 //observer.observe(document, { attributes: true, childList: true, subtree: true });
 
