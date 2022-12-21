@@ -2,9 +2,16 @@
 
 var svgs = document.querySelectorAll("div a svg")
 var images = document.querySelectorAll("div .RichContent-cover")
+var top_tags = document.querySelectorAll("div ul li.Tabs-item.AppHeader-Tab.Tabs-item--noMeta:not(:first-child)")
+var top_right_settings = document.querySelectorAll("div.AppHeader-userInfo div div.Popover button")
+var top_right_settings2 = document.querySelectorAll("div.AppHeader-userInfo > div > a")
+var navs = document.querySelectorAll("nav.TopstoryTabs.TopstoryPageHeader-tabs")
+
 var ads = document.querySelectorAll("div .Pc-feedAd-container")
 var rights = document.querySelectorAll("div .GlobalSideBar")
 var rights_question = document.querySelectorAll("div .Question-sideColumn")
+var right_side_div = document.querySelectorAll("div .Question-sideColumn")
+var right_side_div2 = document.querySelectorAll("div.Topstory-container > div[data-za-detail-view-path-module]")
 var question_container =document.querySelectorAll("div .Question-mainColumn")
 var question_container_list = document.querySelectorAll("div.Question-main div.ListShortcut")
 var main_container =document.querySelectorAll("div .Topstory-mainColumn")
@@ -15,13 +22,15 @@ var video_in =document.querySelectorAll("div.VideoContributionAnswer-video")
 var video_in_question =document.querySelectorAll("div.ZVideoItem-video")
 var video_in_question2 =document.querySelectorAll("div.RichText-video")
 var iframes = document.querySelectorAll("iframe")
-var video_inquestion3 = document.querySelectorAll("div.RichText-ZVideoLinkCardContainer")
+var video_in_question3 = document.querySelectorAll("div.RichText-ZVideoLinkCardContainer")
+var video_in_question4 = document.querySelectorAll("VideoAnswerPlayer-video")
+
 var images_all = document.querySelectorAll("img")
 //ArticleItem-image
 var user_self_image = document.querySelectorAll("img.Avatar")
 //console.log ("typeof ",typeof(svgs))
 var all_objs = []
-all_objs = all_objs.concat(svgs,rights,rights_question,rights_SearchSideBar)
+all_objs = all_objs.concat(svgs,rights,top_tags,navs,right_side_div2,top_right_settings,top_right_settings2,rights_question,rights_SearchSideBar)
 
 var main_container_objs = []
 main_container_objs = main_container_objs.concat(main_container,question_container,SearchMain_container,question_container_list)
@@ -33,7 +42,7 @@ var obj_inner = []
 obj_inner = obj_inner.concat(images_all,images)
 
 var obj_inner_video = []
-obj_inner_video = obj_inner_video.concat(video_in,video_in_question,video_in_question2,video_inquestion3,iframes)
+obj_inner_video = obj_inner_video.concat(video_in,video_in_question,video_in_question2,video_in_question3,video_in_question4,iframes)
 
 //console.log("user_self_image:"+user_self_image.length)
 //console.log("length images_all:"+images_all.length)
@@ -113,19 +122,25 @@ function show_or_hidden(){
 
 
 
+var result_of_status = false
+chrome.storage.sync.get(['switchStatus_inner'], function(result) {
+    result_of_status = result.switchStatus_inner
+});
 var observer = new MutationObserver(mutations => {
-    chrome.storage.sync.get(['switchStatus_inner'], function(result) {
-        for(let mutation of mutations) {
-             for(let addedNode of mutation.addedNodes) {
-                 if (addedNode.nodeName === "IMG") {
-                        if (result.switchStatus_inner){
-                            addedNode.setAttribute("style","display:none");
+                    if(result_of_status){
+                        for(let mutation of mutations) {
+                            for(let addedNode of mutation.addedNodes) {
+//                               console.log("detect node:",addedNode)
+                               if (addedNode.nodeName === "IMG") {
+                                      addedNode.setAttribute("style","display:none");
+                               }
+                            }
                         }
-                  }
-              }
-         }
-    });
- });
+                    }
+                });
+
+
+
 observer.observe(document, { childList: true, subtree: true });
 //chrome.storage.sync.get(['unlikes'], function(result) {
 //  if(result && result.unlikes && listAllLi){
