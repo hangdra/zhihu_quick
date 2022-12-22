@@ -23,7 +23,7 @@ var video_in_question =document.querySelectorAll("div.ZVideoItem-video")
 var video_in_question2 =document.querySelectorAll("div.RichText-video")
 var iframes = document.querySelectorAll("iframe")
 var video_in_question3 = document.querySelectorAll("div.RichText-ZVideoLinkCardContainer")
-var video_in_question4 = document.querySelectorAll("VideoAnswerPlayer-video")
+var video_in_question4 = document.querySelectorAll("div.VideoAnswerPlayer-video")
 
 var images_all = document.querySelectorAll("img")
 //ArticleItem-image
