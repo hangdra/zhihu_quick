@@ -1,15 +1,14 @@
 
 var initSwitchStatus = false;
 var unlikeExpireInMilsecL = 30*24*60*60*1000;
-var platformHost = "(baidu|youtube).com";
-var platformResourceHost=[/^http(s)?:\/\/.*(baidu|youtube).com\/.*/]
-
+var streamPlatformHost = "zhihu.com";
+var platformResourceHost=[/^http(s)?:\/\/(www.zhihu.com\/video)|(video.zhihu.com)|(pic[0-9]*.zhimg.com)\/.*/]
 var initVoice = true;
 
 //if need voice talk
 function voicecTalk(voiceStr){
   console.log('voicecTalk function');
-  chrome.storage.local.get(['voice'], function(result) {
+  chrome.storage.sync.get(['voice'], function(result) {
     if(result && result.voice){
       console.log('voicecTalk'+result.voice);
       chrome.tts.speak(voiceStr);
@@ -23,12 +22,10 @@ chrome.alarms.onAlarm.addListener(function(alarm){
             console.log("Whoops.. " + chrome.runtime.lastError.message);
         }else{
             if ((tabs != undefined )&& (tabs.length != 0 )){
-                if (platformResourceHost[0].exec(tabs[0].url)&&platformResourceHost[0].exec(tabs[0].url)[0]){
-                    console.log("pop:web thing running")
-                    chrome.tabs.executeScript(
-                        tabs[0].id,
-                        {file:"scripts/dislike.js"});
-                }
+                chrome.tabs.executeScript(
+                    tabs[0].id,
+                    {file:"scripts/dislike.js"}
+                );
             };
        }
      });
@@ -36,22 +33,19 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 
 rule_show_action_button ={
           conditions: [new chrome.declarativeContent.PageStateMatcher(
-//          urls: ["<all_urls>"]
-                {pageUrl: {urlMatches: platformHost},})],
+                {pageUrl: {urlContains: streamPlatformHost},})],
                 actions: [new chrome.declarativeContent.ShowPageAction()]}
     //set listener at the begging of extension installed
 chrome.runtime.onInstalled.addListener(function() {
   console.log('onInstalled over.');
-//  chrome.storage.local.set({switchStatus: true}, function() {});
-  chrome.storage.local.set({switchStatus_inner: true}, function() {});
-//  chrome.storage.local.set({switchBtnStatus_inner_video: true}, function() {});
-  chrome.storage.local.set({voice: initVoice}, function() {});
+  chrome.storage.sync.set({switchStatus: true}, function() {});
+  chrome.storage.sync.set({switchStatus_inner: true}, function() {});
+  chrome.storage.sync.set({switchBtnStatus_inner_video: true}, function() {});
+  chrome.storage.sync.set({voice: initVoice}, function() {});
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     chrome.declarativeContent.onPageChanged.addRules([rule_show_action_button]);
   });
 });
-
-
 
 
 
@@ -61,11 +55,10 @@ function hostEquals(inputUrl,tarUrls){
     for (tarUrl of tarUrls){
         if (inputUrl && tarUrl){
 //            var reg = /^http(s)?:\/\/(.*?)\//;
-            console.log(" bg:inputUrl:",inputUrl,"tarUrls",tarUrls)
+            console.log("inputUrl:",inputUrl,"tarUrls",tarUrls)
 //            console.log("tarUrl:",tarUrl," inputUrl:",inputUrl," sencond:",tarUrl.exec(inputUrl)[2]);
             if (tarUrl.exec(inputUrl)&&tarUrl.exec(inputUrl)[0]){
-                find = true;
-                break;
+                return true;
             }
         }
     }
@@ -75,16 +68,16 @@ function hostEquals(inputUrl,tarUrls){
 }
 
 function add_clear_alarms(e){
-    console.log("bg:add_clear_alarms run")
+    console.log("add_clear_alarms run")
     console.log(e);
     if (hostEquals(e.url, platformResourceHost) ) {
-        console.log("bg:add_clear_alarms 匹配页面。");
-    //        for(var i=1;i<100;i++){
+        console.log("add_clear_alarms 匹配知乎。");
+//        for(var i=1;i<100;i++){
         i = 0;
         chrome.alarms.create("add_clear_alarms"+i, {"when":Date.now()+50*i});
-    }
+//        }
 
-//    }
+    }
 }
 
 
@@ -103,7 +96,7 @@ function add_clear_alarms(e){
 chrome.webRequest.onCompleted.addListener(add_clear_alarms,{urls: ["<all_urls>"]})
 
 
-//chrome.webRequest.onCompleted.addListener(add_clear_alarms,{urls:["*://"+platformHost+"/*"]})
+//chrome.webRequest.onCompleted.addListener(add_clear_alarms,{urls:["*://"+streamPlatformHost+"/*"]})
 
 
 

@@ -1,9 +1,9 @@
 
 {
-  "name": "image block",
-  "version": "1.0.3",
-  "description": "精简页面，精彩留给自己!",
-  "permissions": ["*://*.baidu.com/*",  "*://*.youtube.com/*","activeTab","declarativeContent", "storage","tts","ttsEngine",
+  "name": "知乎quick",
+  "version": "1.0.0",
+  "description": "精简知乎，精彩留给自己!",
+  "permissions": ["*://*.zhihu.com/","https://*.zhimg.com/","activeTab","declarativeContent", "storage","tts","ttsEngine",
     "webNavigation","alarms","webRequest"],
   "tts_engine": {
     "voices": [
@@ -22,21 +22,21 @@
   "background": {
     "scripts": ["scripts/background.js"]
   },
-  "browser_action": {
-      "default_title": "网页quick",
+  "page_action": {
+      "default_title": "知乎quick",
       "default_popup": "popup.html",
       "default_icon": {
-        "16": "images/img.png",
-        "32": "images/img.png",
-        "48": "images/img.png",
-        "128": "images/img.png"
+        "16": "images/zhihu.png",
+        "32": "images/zhihu.png",
+        "48": "images/zhihu.png",
+        "128": "images/zhihu.png"
       }
     },
     "icons": {
-      "16": "images/img.png",
-      "32": "images/img.png",
-      "48": "images/img.png",
-      "128": "images/img.png"
+      "16": "images/zhihu.png",
+      "32": "images/zhihu.png",
+      "48": "images/zhihu.png",
+      "128": "images/zhihu.png"
     },
   "manifest_version": 2
 }
