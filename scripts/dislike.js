@@ -5,7 +5,8 @@ var images = document.querySelectorAll("div .RichContent-cover")
 var top_tags = document.querySelectorAll("div ul li.Tabs-item.AppHeader-Tab.Tabs-item--noMeta:not(:first-child)")
 var top_right_settings = document.querySelectorAll("div.AppHeader-userInfo div div.Popover button")
 var top_right_settings2 = document.querySelectorAll("div.AppHeader-userInfo > div > a")
-var navs = document.querySelectorAll("nav.TopstoryTabs.TopstoryPageHeader-tabs")
+var nav = document.querySelectorAll("nav.TopstoryTabs.TopstoryPageHeader-tabs")
+var nav_inner = document.querySelectorAll("SearchTabs-inner")
 
 var ads = document.querySelectorAll("div .Pc-feedAd-container")
 var rights = document.querySelectorAll("div .GlobalSideBar")
@@ -30,7 +31,7 @@ var images_all = document.querySelectorAll("img")
 var user_self_image = document.querySelectorAll("img.Avatar")
 //console.log ("typeof ",typeof(svgs))
 var all_objs = []
-all_objs = all_objs.concat(svgs,rights,top_tags,navs,right_side_div2,top_right_settings,top_right_settings2,rights_question,rights_SearchSideBar)
+all_objs = all_objs.concat(svgs,rights,top_tags,nav,nav_inner,right_side_div2,top_right_settings,top_right_settings2,rights_question,rights_SearchSideBar)
 
 var main_container_objs = []
 main_container_objs = main_container_objs.concat(main_container,question_container,SearchMain_container,question_container_list)
